@@ -13,7 +13,7 @@ st.set_page_config(
 if "page" not in st.session_state:
     st.session_state.page = "question"
 
-# ---------- GLOBAL CSS ----------
+# ---------- GLOBAL CSS + JS ----------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
@@ -21,21 +21,7 @@ st.markdown("""
 html, body, [class*="css"]  {
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(135deg, #ffe4f1, #ffd1e8);
-    cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym46.cur'), auto;
-}
-
-/* Sparkle cursor effect */
-body::after {
-    content: "✨";
-    position: fixed;
-    animation: sparkle 1.5s infinite;
-    pointer-events: none;
-}
-
-@keyframes sparkle {
-    0% {opacity: 0;}
-    50% {opacity: 1;}
-    100% {opacity: 0;}
+    overflow-x: hidden;
 }
 
 /* Floating teddy bears */
@@ -119,6 +105,34 @@ body::after {
 <div class="teddy teddy2">🧸</div>
 <div class="teddy teddy3">🧸</div>
 <div class="teddy teddy4">🧸</div>
+
+<!-- Sparkle Cursor Script -->
+<script>
+document.addEventListener("mousemove", function(e) {
+    let sparkle = document.createElement("div");
+    sparkle.innerHTML = "✨";
+    sparkle.style.position = "fixed";
+    sparkle.style.left = e.clientX + "px";
+    sparkle.style.top = e.clientY + "px";
+    sparkle.style.pointerEvents = "none";
+    sparkle.style.fontSize = "14px";
+    sparkle.style.opacity = "0.8";
+    sparkle.style.animation = "sparkFade 1s ease-out forwards";
+    sparkle.style.zIndex = "9999";
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+        sparkle.remove();
+    }, 1000);
+});
+</script>
+
+<style>
+@keyframes sparkFade {
+    0% {transform: scale(1); opacity: 1;}
+    100% {transform: scale(2); opacity: 0;}
+}
+</style>
 """, unsafe_allow_html=True)
 
 # ---------- NAV ----------
