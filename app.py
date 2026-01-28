@@ -11,23 +11,20 @@ st.set_page_config(
 
 # ---------- SESSION STATE ----------
 if "page" not in st.session_state:
-    st.session_state.page = "question"
+    st.session_state.page = "intro"
 
 # ---------- GLOBAL CSS + JS ----------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
 
-/* Base */
 html, body, [class*="css"]  {
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(135deg, #ffe4f1, #ffd1e8);
 }
 
 /* Hide default cursor */
-body {
-    cursor: none;
-}
+body { cursor: none; }
 
 /* Custom heart cursor */
 .heart-cursor {
@@ -39,7 +36,6 @@ body {
     pointer-events: none;
     z-index: 9999;
 }
-
 .heart-cursor::before,
 .heart-cursor::after {
     content: "";
@@ -49,18 +45,10 @@ body {
     background: pink;
     border-radius: 50%;
 }
+.heart-cursor::before { top: -11px; left: 0; }
+.heart-cursor::after { left: -11px; top: 0; }
 
-.heart-cursor::before {
-    top: -11px;
-    left: 0;
-}
-
-.heart-cursor::after {
-    left: -11px;
-    top: 0;
-}
-
-/* Sparkle trail */
+/* Sparkles */
 .sparkle {
     position: fixed;
     font-size: 12px;
@@ -68,24 +56,23 @@ body {
     animation: fadeOut 1s forwards;
     z-index: 9998;
 }
-
 @keyframes fadeOut {
     from {opacity: 1; transform: scale(1);}
     to {opacity: 0; transform: scale(2);}
 }
 
 /* Floating teddy bears */
-.teddy {
+.teddy-float {
     position: fixed;
     font-size: 45px;
     animation: float 6s infinite ease-in-out;
     opacity: 0.7;
     z-index: 0;
 }
-.teddy1 { left: 5%; top: 10%; animation-delay: 0s;}
-.teddy2 { left: 85%; top: 20%; animation-delay: 1s;}
-.teddy3 { left: 10%; top: 70%; animation-delay: 2s;}
-.teddy4 { left: 80%; top: 75%; animation-delay: 3s;}
+.t1 { left: 5%; top: 10%; }
+.t2 { left: 85%; top: 20%; }
+.t3 { left: 10%; top: 70%; }
+.t4 { left: 80%; top: 75%; }
 
 @keyframes float {
     0% {transform: translateY(0px);}
@@ -93,7 +80,7 @@ body {
     100% {transform: translateY(0px);}
 }
 
-/* Card UI */
+/* Card */
 .card {
     background: rgba(255,255,255,0.94);
     padding: 45px;
@@ -117,45 +104,45 @@ body {
     line-height: 1.8;
 }
 
-.emoji {
-    font-size: 65px;
-    animation: float 2s infinite ease-in-out;
+/* Glow buttons */
+.glow-btn {
+    background: linear-gradient(45deg, #ff7eb3, #ffb3d9);
+    color: white;
+    border-radius: 40px;
+    padding: 14px 35px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { box-shadow: 0 0 10px #ff7eb3; }
+    to { box-shadow: 0 0 25px #ffb3d9; }
 }
 
-/* Envelope */
-.envelope {
-    font-size: 120px;
-    animation: pop 1s ease;
-}
-
+/* Envelope + Letter */
+.envelope { font-size: 120px; }
 .letter {
     background: #fffafc;
     border-radius: 25px;
     padding: 35px;
     margin-top: 20px;
     box-shadow: 0 0 25px rgba(255,105,180,0.25);
-    animation: slide 1.5s ease;
 }
 
-@keyframes slide {
-    from {transform: translateY(40px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
-}
-
+/* Animations */
 @keyframes pop {
     from {transform: scale(0.85); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
 }
 </style>
 
-<!-- Floating Teddies -->
-<div class="teddy teddy1">🧸</div>
-<div class="teddy teddy2">🧸</div>
-<div class="teddy teddy3">🧸</div>
-<div class="teddy teddy4">🧸</div>
+<div class="teddy-float t1">🧸</div>
+<div class="teddy-float t2">🧸</div>
+<div class="teddy-float t3">🧸</div>
+<div class="teddy-float t4">🧸</div>
 
 <script>
-/* Heart cursor */
 const cursor = document.createElement("div");
 cursor.classList.add("heart-cursor");
 document.body.appendChild(cursor);
@@ -171,9 +158,7 @@ document.addEventListener("mousemove", e => {
     sparkle.style.top = e.clientY + "px";
     document.body.appendChild(sparkle);
 
-    setTimeout(() => {
-        sparkle.remove();
-    }, 900);
+    setTimeout(() => sparkle.remove(), 900);
 });
 </script>
 """, unsafe_allow_html=True)
@@ -183,30 +168,34 @@ def go(page):
     st.session_state.page = page
     st.rerun()
 
-# ---------- QUESTION PAGE ----------
-if st.session_state.page == "question":
+# ---------- INTRO PAGE ----------
+if st.session_state.page == "intro":
     st.markdown("""
     <div class="card">
-        <div class="emoji">🧁🎀</div>
-        <div class="title">Will You Be My Valentine?</div>
-        <p class="text">
-        I baked this website just for you 🥺🧁<br>
-        Extra love, extra sugar, extra us 💕✨
-        </p>
+        <div class="title">For the boy who owns my heart 💕</div>
+        <p class="text">A little digital love story just for you 🎬</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
+    if st.button("Enter My Heart 💗"):
+        go("question")
+
+# ---------- QUESTION PAGE ----------
+elif st.session_state.page == "question":
+    st.markdown("""
+    <div class="card">
+        <div class="title">Will You Be My Valentine?</div>
+        <p class="text">I made all of this just for you 🥺💗</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     c1, c2, c3 = st.columns(3)
-
     with c1:
-        if st.button("YES 🥰🧁"):
+        if st.button("YES 🥰", key="yes"):
             go("yes")
-
     with c2:
-        if st.button("NO 🙈"):
+        if st.button("NO 🙈", key="no"):
             go("no")
-
     with c3:
         if st.button("💌 Open Love Letter"):
             go("letter")
@@ -214,50 +203,29 @@ if st.session_state.page == "question":
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
     st.balloons()
-    st.snow()
     st.markdown("""
     <div class="card">
-        <div class="emoji">💞🧸</div>
         <div class="title">YAYYYYY 💖</div>
-        <p class="text">
-        My heart just turned into cupcakes 🧁😭<br><br>
-        You’re my favorite human, my safe place,<br>
-        my forever Valentine 🥰💍<br><br>
-        I love you more than desserts 🧁💗
-        </p>
+        <p class="text">You just made my heart the happiest place on earth 🥹💗</p>
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("Again Again 🥺💗"):
-        go("question")
+    if st.button("Final Scene 🎬"):
+        go("end")
 
 # ---------- NO PAGE ----------
 elif st.session_state.page == "no":
-    cute_no = [
-        "Hehe wrong cupcake 🤭",
-        "Oopsie 🧁😶‍🌫️",
-        "Try again cutie 🥺",
-        "System glitch 💻💔",
-        "Not allowed 😌",
-        "Teddy says no 🧸🚫",
-        "Cupcake disapproves 🧁🙄"
-    ]
-
-    st.markdown(f"""
+    st.markdown("""
     <div class="card">
-        <div class="emoji">🥺🧸</div>
-        <div class="title">{random.choice(cute_no)}</div>
-        <p class="text">
-        That button is just decoration 🎀<br>
-        Destiny already clicked YES 💞✨
-        </p>
+        <div class="title">Wrong Answer 😌</div>
+        <p class="text">That option is just decoration 💕</p>
     </div>
     """, unsafe_allow_html=True)
 
     time.sleep(1.2)
     go("question")
 
-# ---------- LOVE LETTER PAGE ----------
+# ---------- LOVE LETTER PAGE (TYPEWRITER EFFECT) ----------
 elif st.session_state.page == "letter":
     st.markdown("""
     <div class="card">
@@ -266,30 +234,39 @@ elif st.session_state.page == "letter":
     </div>
     """, unsafe_allow_html=True)
 
-    time.sleep(1.2)
+    letter_lines = [
+        "I would also like to talk a bit about how I feel about you.",
+        "I adore you. Everything you do amazes me.",
+        "I cherish you... respect you... love you... care for you...",
+        "wanna protect you... take care of you.",
+        "Not to be dramatic or anything but I worship the ground you walk on.",
+        "You are literally the prince charming they talk about in fairy tales.",
+        "I want you to forever know your worth.",
+        "I know your value... I know your worth...",
+        "So I know how to cherish you...",
+        "and once again your heart is safe with me...",
+        "I love you baby with everything I have in me...",
+        "every bit of love I have left in me, I'll pour it into you 💖"
+    ]
 
+    placeholder = st.empty()
+    full_text = ""
+    for line in letter_lines:
+        full_text += line + "\n\n"
+        placeholder.markdown(f"<div class='letter'><p class='text'>{full_text}</p></div>", unsafe_allow_html=True)
+        time.sleep(0.9)
+
+    if st.button("Back 💕"):
+        go("question")
+
+# ---------- ENDING PAGE ----------
+elif st.session_state.page == "end":
     st.markdown("""
-    <div class="letter">
+    <div class="card">
+        <div class="title">No matter what happens in life…</div>
         <p class="text">
-        I would also like to talk a bit about how I feel about you.  
-        I adore you. Everything you do amazes me.  
-        I cherish you......respect you.....love you.....care for you......  
-        wanna protect you......take care of you.  
-        <br><br>
-        Not to be dramatic or anything but I worship the ground you walk on.  
-        You are literally the prince charming they talk about in the fairy tales.  
-        <br><br>
-        I want u to forever know ur worth.  
-        I know ur value.....I know ur worth.....  
-        So I know how to cherish you....  
-        and once again ur heart is safe with me.....  
-        <br><br>
-        I love you baby with everything I have in me......  
-        every bit of love that I have left in me  
-        I'll pour it into you. 💖
+        You will always be my Valentine 💕<br><br>
+        Always chosen. Always safe. Always loved. 💗
         </p>
     </div>
     """, unsafe_allow_html=True)
-
-    if st.button("Back to Valentine 💕"):
-        go("question")
