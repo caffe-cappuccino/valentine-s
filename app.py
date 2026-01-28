@@ -1,8 +1,6 @@
 import streamlit as st
 import random
 import time
-import qrcode
-from PIL import Image
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(
@@ -233,10 +231,11 @@ elif st.session_state.page == "qr":
     """, unsafe_allow_html=True)
 
     qr_text = "I love you 💖"
+    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={qr_text}"
 
-    qr = qrcode.make(qr_text)
-    st.image(qr, width=260, caption="Scan me 💕")
+    st.image(qr_url, width=260, caption="Scan me 💕")
 
     st.write("")
     if st.button("Back 💗"):
         go("question")
+
