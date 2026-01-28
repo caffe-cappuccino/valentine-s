@@ -1,6 +1,8 @@
 import streamlit as st
 import random
 import time
+import qrcode
+from PIL import Image
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(
@@ -106,7 +108,7 @@ html, body, [class*="css"]  {
 <div class="teddy teddy3">🧸</div>
 <div class="teddy teddy4">🧸</div>
 
-<!-- Sparkle Cursor Script -->
+<!-- Sparkle Cursor -->
 <script>
 document.addEventListener("mousemove", function(e) {
     let sparkle = document.createElement("div");
@@ -164,6 +166,10 @@ if st.session_state.page == "question":
         if st.button("NO 🙈"):
             go("no")
 
+    st.write("")
+    if st.button("Scan Surprise QR 📱💗"):
+        go("qr")
+
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
     st.balloons()
@@ -212,3 +218,25 @@ elif st.session_state.page == "no":
     st.info("Redirecting you to love central... 💕🧁")
     time.sleep(1.3)
     go("question")
+
+# ---------- QR PAGE ----------
+elif st.session_state.page == "qr":
+    st.markdown("""
+    <div class="card">
+        <div class="emoji">📱💗</div>
+        <div class="title">Scan Me 🥺</div>
+        <p class="text">
+        Scan this with your phone camera 💕<br>
+        A little love surprise is waiting for you ✨
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    qr_text = "I love you 💖"
+
+    qr = qrcode.make(qr_text)
+    st.image(qr, width=260, caption="Scan me 💕")
+
+    st.write("")
+    if st.button("Back 💗"):
+        go("question")
