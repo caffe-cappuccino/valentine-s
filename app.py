@@ -13,15 +13,65 @@ st.set_page_config(
 if "page" not in st.session_state:
     st.session_state.page = "question"
 
-# ---------- GLOBAL CSS ----------
+# ---------- GLOBAL CSS + JS ----------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
 
+/* Base */
 html, body, [class*="css"]  {
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(135deg, #ffe4f1, #ffd1e8);
-    cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym46.cur'), auto;
+}
+
+/* Hide default cursor */
+body {
+    cursor: none;
+}
+
+/* Custom heart cursor */
+.heart-cursor {
+    position: fixed;
+    width: 22px;
+    height: 22px;
+    background: pink;
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.heart-cursor::before,
+.heart-cursor::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.heart-cursor::before {
+    top: -11px;
+    left: 0;
+}
+
+.heart-cursor::after {
+    left: -11px;
+    top: 0;
+}
+
+/* Sparkle trail */
+.sparkle {
+    position: fixed;
+    font-size: 12px;
+    pointer-events: none;
+    animation: fadeOut 1s forwards;
+    z-index: 9998;
+}
+
+@keyframes fadeOut {
+    from {opacity: 1; transform: scale(1);}
+    to {opacity: 0; transform: scale(2);}
 }
 
 /* Floating teddy bears */
@@ -43,7 +93,7 @@ html, body, [class*="css"]  {
     100% {transform: translateY(0px);}
 }
 
-/* Card */
+/* Card UI */
 .card {
     background: rgba(255,255,255,0.94);
     padding: 45px;
@@ -72,7 +122,7 @@ html, body, [class*="css"]  {
     animation: float 2s infinite ease-in-out;
 }
 
-/* Envelope animation */
+/* Envelope */
 .envelope {
     font-size: 120px;
     animation: pop 1s ease;
@@ -98,10 +148,34 @@ html, body, [class*="css"]  {
 }
 </style>
 
+<!-- Floating Teddies -->
 <div class="teddy teddy1">🧸</div>
 <div class="teddy teddy2">🧸</div>
 <div class="teddy teddy3">🧸</div>
 <div class="teddy teddy4">🧸</div>
+
+<script>
+/* Heart cursor */
+const cursor = document.createElement("div");
+cursor.classList.add("heart-cursor");
+document.body.appendChild(cursor);
+
+document.addEventListener("mousemove", e => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.innerHTML = "✨";
+    sparkle.style.left = e.clientX + "px";
+    sparkle.style.top = e.clientY + "px";
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+        sparkle.remove();
+    }, 900);
+});
+</script>
 """, unsafe_allow_html=True)
 
 # ---------- NAV ----------
@@ -217,6 +291,5 @@ elif st.session_state.page == "letter":
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
     if st.button("Back to Valentine 💕"):
         go("question")
