@@ -4,8 +4,8 @@ import time
 
 # ---------- PAGE CONFIG ----------
 st.set_page_config(
-    page_title="Will You Be My Valentine 💖",
-    page_icon="💘",
+    page_title="Be My Valentine 💕",
+    page_icon="🧁",
     layout="centered"
 )
 
@@ -16,141 +16,185 @@ if "page" not in st.session_state:
 # ---------- GLOBAL CSS ----------
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
 
 html, body, [class*="css"]  {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffd6e8, #ffe6f2);
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #ffe4f1, #ffd1e8);
+    cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym46.cur'), auto;
 }
 
-.main-card {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 40px;
-    border-radius: 25px;
+/* Sparkle cursor effect */
+body::after {
+    content: "✨";
+    position: fixed;
+    animation: sparkle 1.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    0% {opacity: 0;}
+    50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/* Floating teddy bears */
+.teddy {
+    position: fixed;
+    font-size: 45px;
+    animation: float 6s infinite ease-in-out;
+    opacity: 0.7;
+    z-index: 0;
+}
+
+.teddy1 { left: 5%; top: 10%; animation-delay: 0s;}
+.teddy2 { left: 85%; top: 20%; animation-delay: 1s;}
+.teddy3 { left: 10%; top: 70%; animation-delay: 2s;}
+.teddy4 { left: 80%; top: 75%; animation-delay: 3s;}
+
+@keyframes float {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-25px);}
+    100% {transform: translateY(0px);}
+}
+
+/* Card UI */
+.card {
+    background: rgba(255,255,255,0.92);
+    padding: 45px;
+    border-radius: 35px;
     text-align: center;
-    box-shadow: 0px 0px 40px rgba(255, 105, 180, 0.25);
-    animation: fadeIn 1.2s ease-in-out;
+    box-shadow: 0 0 40px rgba(255,105,180,0.3);
+    animation: pop 1s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .title {
     font-family: 'Pacifico', cursive;
-    font-size: 48px;
-    color: #ff4f9a;
+    font-size: 46px;
+    color: #ff5fa2;
 }
 
-.subtitle {
+.text {
     font-size: 18px;
-    color: #444;
+    color: #555;
 }
 
-.btn-yes {
-    background: linear-gradient(45deg, #ff4f9a, #ff85b3);
+.emoji {
+    font-size: 65px;
+    animation: float 2s infinite ease-in-out;
+}
+
+/* Buttons */
+.soft-btn-yes {
+    background: linear-gradient(45deg, #ff7eb3, #ffb3d9);
     color: white;
-    padding: 12px 35px;
-    border-radius: 30px;
+    border-radius: 40px;
+    padding: 14px 40px;
     font-size: 18px;
     border: none;
+    box-shadow: 0 0 15px rgba(255,126,179,0.6);
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(255,79,154,0.6);
 }
 
-.btn-no {
-    background: #fff;
-    color: #ff4f9a;
-    padding: 12px 35px;
-    border-radius: 30px;
+.soft-btn-no {
+    background: white;
+    color: #ff7eb3;
+    border-radius: 40px;
+    padding: 14px 40px;
     font-size: 18px;
-    border: 2px solid #ff4f9a;
+    border: 2px dashed #ff7eb3;
     cursor: pointer;
 }
 
-.heart {
-    font-size: 60px;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.15);}
-    100% {transform: scale(1);}
-}
-
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+@keyframes pop {
+    from {transform: scale(0.9); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
 }
 </style>
+
+<!-- Floating Teddies -->
+<div class="teddy teddy1">🧸</div>
+<div class="teddy teddy2">🧸</div>
+<div class="teddy teddy3">🧸</div>
+<div class="teddy teddy4">🧸</div>
 """, unsafe_allow_html=True)
 
-# ---------- FUNCTIONS ----------
-def go_to(page):
+# ---------- NAV ----------
+def go(page):
     st.session_state.page = page
     st.rerun()
 
 # ---------- QUESTION PAGE ----------
 if st.session_state.page == "question":
     st.markdown("""
-    <div class="main-card">
-        <div class="heart">💖</div>
+    <div class="card">
+        <div class="emoji">🧁🎀</div>
         <div class="title">Will You Be My Valentine?</div>
-        <p class="subtitle">From the girl who already chose you every day 💕</p>
+        <p class="text">
+        I baked this website just for you 🥺🧁<br>
+        Extra love, extra sugar, extra us 💕✨
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
     st.write("")
-    col1, col2 = st.columns(2)
+    c1, c2 = st.columns(2)
 
-    with col1:
-        if st.button("YES 💘"):
-            go_to("yes")
+    with c1:
+        if st.button("YES 🥰🧁"):
+            go("yes")
 
-    with col2:
-        if st.button("NO 🙄"):
-            go_to("no")
+    with c2:
+        if st.button("NO 🙈"):
+            go("no")
 
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
     st.balloons()
+    st.snow()
     st.markdown("""
-    <div class="main-card">
-        <div class="heart">💞</div>
-        <div class="title">YAYYYYY!!! 😭💘</div>
-        <p class="subtitle">
-        You just made my heart do backflips 🥹<br>
-        Best decision of your life tbh 😌💖<br><br>
-        Happy Valentine's Day, my love 💕<br>
-        I choose you. Today. Tomorrow. Always. 💍✨
+    <div class="card">
+        <div class="emoji">💞🧸</div>
+        <div class="title">YAYYYYY 💖</div>
+        <p class="text">
+        My heart just turned into cupcakes 🧁😭<br><br>
+        You’re my favorite human, my safe place,<br>
+        my forever Valentine 🥰💍<br><br>
+        I love you more than desserts 🧁💗
         </p>
     </div>
     """, unsafe_allow_html=True)
 
     st.write("")
-    if st.button("Replay 💫"):
-        go_to("question")
+    if st.button("Again Again 🥺💗"):
+        go("question")
 
 # ---------- NO PAGE ----------
 elif st.session_state.page == "no":
-    messages = [
-        "Wrong answer bestie 😤",
-        "Try again 😏",
-        "Think again 💭",
-        "System error ❌",
-        "This option is disabled 🚫",
-        "Unauthorized choice 🔐",
-        "Emotionally unavailable option 😌"
+    cute_no = [
+        "Hehe wrong cupcake 🤭",
+        "Oopsie 🧁😶‍🌫️",
+        "Try again cutie 🥺",
+        "System glitch 💻💔",
+        "Not allowed 😌",
+        "Teddy says no 🧸🚫",
+        "Cupcake disapproves 🧁🙄"
     ]
 
     st.markdown(f"""
-    <div class="main-card">
-        <div class="title">😒 {random.choice(messages)}</div>
-        <p class="subtitle">
-        This button is just for decoration 🙄<br>
-        There's only one valid answer anyway 💖
+    <div class="card">
+        <div class="emoji">🥺🧸</div>
+        <div class="title">{random.choice(cute_no)}</div>
+        <p class="text">
+        That button is just decoration 🎀<br>
+        Destiny already clicked YES 💞✨
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    time.sleep(1.2)
-    st.info("Redirecting you to the correct decision... 💕")
-    time.sleep(1.2)
-    go_to("question")
+    time.sleep(1.3)
+    st.info("Redirecting you to love central... 💕🧁")
+    time.sleep(1.3)
+    go("question")
