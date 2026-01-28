@@ -94,6 +94,21 @@ html, body, [class*="css"]  {
     cursor: pointer;
 }
 
+/* Floating QR */
+.qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    animation: floatQR 3s ease-in-out infinite;
+}
+
+@keyframes floatQR {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-15px);}
+    100% {transform: translateY(0px);}
+}
+
 @keyframes pop {
     from {transform: scale(0.9); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
@@ -231,11 +246,16 @@ elif st.session_state.page == "qr":
     """, unsafe_allow_html=True)
 
     qr_text = "I love you 💖"
-    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={qr_text}"
 
-    st.image(qr_url, width=260, caption="Scan me 💕")
+    # Transparent background QR
+    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={qr_text}&bgcolor=ffffff00&color=ff5fa2"
+
+    st.markdown(f"""
+    <div class="qr-container">
+        <img src="{qr_url}" width="260"/>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("")
     if st.button("Back 💗"):
         go("question")
-
