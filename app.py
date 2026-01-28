@@ -24,20 +24,6 @@ html, body, [class*="css"]  {
     cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym46.cur'), auto;
 }
 
-/* Sparkle cursor effect */
-body::after {
-    content: "✨";
-    position: fixed;
-    animation: sparkle 1.5s infinite;
-    pointer-events: none;
-}
-
-@keyframes sparkle {
-    0% {opacity: 0;}
-    50% {opacity: 1;}
-    100% {opacity: 0;}
-}
-
 /* Floating teddy bears */
 .teddy {
     position: fixed;
@@ -46,7 +32,6 @@ body::after {
     opacity: 0.7;
     z-index: 0;
 }
-
 .teddy1 { left: 5%; top: 10%; animation-delay: 0s;}
 .teddy2 { left: 85%; top: 20%; animation-delay: 1s;}
 .teddy3 { left: 10%; top: 70%; animation-delay: 2s;}
@@ -58,9 +43,9 @@ body::after {
     100% {transform: translateY(0px);}
 }
 
-/* Card UI */
+/* Card */
 .card {
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.94);
     padding: 45px;
     border-radius: 35px;
     text-align: center;
@@ -79,6 +64,7 @@ body::after {
 .text {
     font-size: 18px;
     color: #555;
+    line-height: 1.8;
 }
 
 .emoji {
@@ -86,35 +72,32 @@ body::after {
     animation: float 2s infinite ease-in-out;
 }
 
-/* Buttons */
-.soft-btn-yes {
-    background: linear-gradient(45deg, #ff7eb3, #ffb3d9);
-    color: white;
-    border-radius: 40px;
-    padding: 14px 40px;
-    font-size: 18px;
-    border: none;
-    box-shadow: 0 0 15px rgba(255,126,179,0.6);
-    cursor: pointer;
+/* Envelope animation */
+.envelope {
+    font-size: 120px;
+    animation: pop 1s ease;
 }
 
-.soft-btn-no {
-    background: white;
-    color: #ff7eb3;
-    border-radius: 40px;
-    padding: 14px 40px;
-    font-size: 18px;
-    border: 2px dashed #ff7eb3;
-    cursor: pointer;
+.letter {
+    background: #fffafc;
+    border-radius: 25px;
+    padding: 35px;
+    margin-top: 20px;
+    box-shadow: 0 0 25px rgba(255,105,180,0.25);
+    animation: slide 1.5s ease;
+}
+
+@keyframes slide {
+    from {transform: translateY(40px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
 }
 
 @keyframes pop {
-    from {transform: scale(0.9); opacity: 0;}
+    from {transform: scale(0.85); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
 }
 </style>
 
-<!-- Floating Teddies -->
 <div class="teddy teddy1">🧸</div>
 <div class="teddy teddy2">🧸</div>
 <div class="teddy teddy3">🧸</div>
@@ -140,7 +123,7 @@ if st.session_state.page == "question":
     """, unsafe_allow_html=True)
 
     st.write("")
-    c1, c2 = st.columns(2)
+    c1, c2, c3 = st.columns(3)
 
     with c1:
         if st.button("YES 🥰🧁"):
@@ -149,6 +132,10 @@ if st.session_state.page == "question":
     with c2:
         if st.button("NO 🙈"):
             go("no")
+
+    with c3:
+        if st.button("💌 Open Love Letter"):
+            go("letter")
 
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
@@ -167,7 +154,6 @@ elif st.session_state.page == "yes":
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
     if st.button("Again Again 🥺💗"):
         go("question")
 
@@ -194,7 +180,43 @@ elif st.session_state.page == "no":
     </div>
     """, unsafe_allow_html=True)
 
-    time.sleep(1.3)
-    st.info("Redirecting you to love central... 💕🧁")
-    time.sleep(1.3)
+    time.sleep(1.2)
     go("question")
+
+# ---------- LOVE LETTER PAGE ----------
+elif st.session_state.page == "letter":
+    st.markdown("""
+    <div class="card">
+        <div class="envelope">✉️💗</div>
+        <div class="title">A Letter For You</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    time.sleep(1.2)
+
+    st.markdown("""
+    <div class="letter">
+        <p class="text">
+        I would also like to talk a bit about how I feel about you.  
+        I adore you. Everything you do amazes me.  
+        I cherish you......respect you.....love you.....care for you......  
+        wanna protect you......take care of you.  
+        <br><br>
+        Not to be dramatic or anything but I worship the ground you walk on.  
+        You are literally the prince charming they talk about in the fairy tales.  
+        <br><br>
+        I want u to forever know ur worth.  
+        I know ur value.....I know ur worth.....  
+        So I know how to cherish you....  
+        and once again ur heart is safe with me.....  
+        <br><br>
+        I love you baby with everything I have in me......  
+        every bit of love that I have left in me  
+        I'll pour it into you. 💖
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write("")
+    if st.button("Back to Valentine 💕"):
+        go("question")
