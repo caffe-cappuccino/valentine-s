@@ -94,21 +94,6 @@ html, body, [class*="css"]  {
     cursor: pointer;
 }
 
-/* Floating QR */
-.qr-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px;
-    animation: floatQR 3s ease-in-out infinite;
-}
-
-@keyframes floatQR {
-    0% {transform: translateY(0px);}
-    50% {transform: translateY(-15px);}
-    100% {transform: translateY(0px);}
-}
-
 @keyframes pop {
     from {transform: scale(0.9); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
@@ -179,10 +164,6 @@ if st.session_state.page == "question":
         if st.button("NO 🙈"):
             go("no")
 
-    st.write("")
-    if st.button("Scan Surprise QR 📱💗"):
-        go("qr")
-
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
     st.balloons()
@@ -231,31 +212,3 @@ elif st.session_state.page == "no":
     st.info("Redirecting you to love central... 💕🧁")
     time.sleep(1.3)
     go("question")
-
-# ---------- QR PAGE ----------
-elif st.session_state.page == "qr":
-    st.markdown("""
-    <div class="card">
-        <div class="emoji">📱💗</div>
-        <div class="title">Scan Me 🥺</div>
-        <p class="text">
-        Scan this with your phone camera 💕<br>
-        A little love surprise is waiting for you ✨
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    qr_text = "I love you 💖"
-
-    # Transparent background QR
-    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={qr_text}&bgcolor=ffffff00&color=ff5fa2"
-
-    st.markdown(f"""
-    <div class="qr-container">
-        <img src="{qr_url}" width="260"/>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.write("")
-    if st.button("Back 💗"):
-        go("question")
