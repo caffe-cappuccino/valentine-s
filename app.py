@@ -54,6 +54,8 @@ html, body, [class*="css"]  {
     animation: pop 1s ease;
     position: relative;
     z-index: 2;
+    max-width: 720px;
+    margin: auto;
 }
 
 .title {
@@ -72,19 +74,25 @@ html, body, [class*="css"]  {
     animation: float 2s infinite ease-in-out;
 }
 
+/* 🎯 BUTTON CONTAINER – TRUE CENTER */
+.button-container {
+    max-width: 520px;
+    margin: 35px auto 0 auto;
+}
+
 /* 🚨 ULTRA BIG, CENTERED BUTTONS 🚨 */
-div.stButton > button {
+.button-container div.stButton > button {
     width: 100%;
-    min-height: 110px;              /* BIG HEIGHT */
-    padding: 30px 20px;             /* GAP AROUND TEXT */
-    font-size: 28px;                /* BIG TEXT */
+    min-height: 110px;
+    padding: 30px 20px;
+    font-size: 28px;
     border-radius: 70px;
     border: none;
     font-weight: 700;
     letter-spacing: 1px;
     line-height: 1.3;
-    
-    display: flex;                  /* PERFECT CENTERING */
+
+    display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -94,27 +102,28 @@ div.stButton > button {
 }
 
 /* YES button */
-div.stButton:nth-of-type(1) > button {
+.button-container div.stButton:nth-of-type(1) > button {
     background: linear-gradient(45deg, #ff5fa2, #ffb3d9);
     color: white;
     box-shadow: 0 0 40px rgba(255,95,162,0.9);
 }
 
 /* NO button */
-div.stButton:nth-of-type(2) > button {
+.button-container div.stButton:nth-of-type(2) > button {
     background: white;
     color: #ff5fa2;
     border: 4px dashed #ff5fa2;
+    margin-top: 20px;
 }
 
 /* Hover */
-div.stButton > button:hover {
+.button-container div.stButton > button:hover {
     transform: scale(1.1);
     box-shadow: 0 0 55px rgba(255,105,180,1);
 }
 
 /* Click */
-div.stButton > button:active {
+.button-container div.stButton > button:active {
     transform: scale(0.94);
 }
 
@@ -184,16 +193,12 @@ if st.session_state.page == "question":
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
-    c1, c2 = st.columns(2)
-
-    with c1:
-        if st.button("YES 🥰🧁"):
-            go("yes")
-
-    with c2:
-        if st.button("NO 🙈"):
-            go("no")
+    st.markdown('<div class="button-container">', unsafe_allow_html=True)
+    if st.button("YES 🥰🧁"):
+        go("yes")
+    if st.button("NO 🙈"):
+        go("no")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------- YES PAGE ----------
 elif st.session_state.page == "yes":
@@ -212,9 +217,10 @@ elif st.session_state.page == "yes":
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
+    st.markdown('<div class="button-container">', unsafe_allow_html=True)
     if st.button("Again Again 🥺💗"):
         go("question")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------- NO PAGE ----------
 elif st.session_state.page == "no":
