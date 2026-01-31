@@ -72,15 +72,23 @@ html, body, [class*="css"]  {
     animation: float 2s infinite ease-in-out;
 }
 
-/* 🚨 EXTRA BIG BUTTONS 🚨 */
+/* 🚨 ULTRA BIG, CENTERED BUTTONS 🚨 */
 div.stButton > button {
     width: 100%;
-    padding: 28px 0;          /* BIGGER HEIGHT */
-    font-size: 26px;          /* BIGGER TEXT */
-    border-radius: 60px;
+    min-height: 110px;              /* BIG HEIGHT */
+    padding: 30px 20px;             /* GAP AROUND TEXT */
+    font-size: 28px;                /* BIG TEXT */
+    border-radius: 70px;
     border: none;
     font-weight: 700;
     letter-spacing: 1px;
+    line-height: 1.3;
+    
+    display: flex;                  /* PERFECT CENTERING */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
     transition: all 0.3s ease;
     animation: pulse 2s infinite;
 }
@@ -89,7 +97,7 @@ div.stButton > button {
 div.stButton:nth-of-type(1) > button {
     background: linear-gradient(45deg, #ff5fa2, #ffb3d9);
     color: white;
-    box-shadow: 0 0 35px rgba(255,95,162,0.8);
+    box-shadow: 0 0 40px rgba(255,95,162,0.9);
 }
 
 /* NO button */
@@ -101,8 +109,8 @@ div.stButton:nth-of-type(2) > button {
 
 /* Hover */
 div.stButton > button:hover {
-    transform: scale(1.12);
-    box-shadow: 0 0 45px rgba(255,105,180,1);
+    transform: scale(1.1);
+    box-shadow: 0 0 55px rgba(255,105,180,1);
 }
 
 /* Click */
@@ -112,9 +120,9 @@ div.stButton > button:active {
 
 /* Pulse animation */
 @keyframes pulse {
-    0% {box-shadow: 0 0 20px rgba(255,105,180,0.5);}
-    50% {box-shadow: 0 0 45px rgba(255,105,180,0.9);}
-    100% {box-shadow: 0 0 20px rgba(255,105,180,0.5);}
+    0% {box-shadow: 0 0 25px rgba(255,105,180,0.5);}
+    50% {box-shadow: 0 0 55px rgba(255,105,180,0.95);}
+    100% {box-shadow: 0 0 25px rgba(255,105,180,0.5);}
 }
 
 @keyframes pop {
