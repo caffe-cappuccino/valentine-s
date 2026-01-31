@@ -72,26 +72,48 @@ html, body, [class*="css"]  {
     animation: float 2s infinite ease-in-out;
 }
 
-/* Buttons */
-.soft-btn-yes {
-    background: linear-gradient(45deg, #ff7eb3, #ffb3d9);
-    color: white;
-    border-radius: 40px;
-    padding: 14px 40px;
-    font-size: 18px;
+/* BIG CUTE BUTTONS */
+div.stButton > button {
+    width: 100%;
+    padding: 20px 0;
+    font-size: 22px;
+    border-radius: 50px;
     border: none;
-    box-shadow: 0 0 15px rgba(255,126,179,0.6);
-    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    animation: pulse 2.5s infinite;
 }
 
-.soft-btn-no {
+/* YES button */
+div.stButton:nth-of-type(1) > button {
+    background: linear-gradient(45deg, #ff6fae, #ffb6d5);
+    color: white;
+    box-shadow: 0 0 25px rgba(255,111,174,0.6);
+}
+
+/* NO button */
+div.stButton:nth-of-type(2) > button {
     background: white;
-    color: #ff7eb3;
-    border-radius: 40px;
-    padding: 14px 40px;
-    font-size: 18px;
-    border: 2px dashed #ff7eb3;
-    cursor: pointer;
+    color: #ff6fae;
+    border: 3px dashed #ff6fae;
+}
+
+/* Hover effect */
+div.stButton > button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(255,105,180,0.8);
+}
+
+/* Click effect */
+div.stButton > button:active {
+    transform: scale(0.95);
+}
+
+/* Button pulse animation */
+@keyframes pulse {
+    0% {box-shadow: 0 0 15px rgba(255,105,180,0.4);}
+    50% {box-shadow: 0 0 30px rgba(255,105,180,0.8);}
+    100% {box-shadow: 0 0 15px rgba(255,105,180,0.4);}
 }
 
 @keyframes pop {
