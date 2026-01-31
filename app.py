@@ -72,48 +72,49 @@ html, body, [class*="css"]  {
     animation: float 2s infinite ease-in-out;
 }
 
-/* BIG CUTE BUTTONS */
+/* 🚨 EXTRA BIG BUTTONS 🚨 */
 div.stButton > button {
     width: 100%;
-    padding: 20px 0;
-    font-size: 22px;
-    border-radius: 50px;
+    padding: 28px 0;          /* BIGGER HEIGHT */
+    font-size: 26px;          /* BIGGER TEXT */
+    border-radius: 60px;
     border: none;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
-    animation: pulse 2.5s infinite;
+    animation: pulse 2s infinite;
 }
 
 /* YES button */
 div.stButton:nth-of-type(1) > button {
-    background: linear-gradient(45deg, #ff6fae, #ffb6d5);
+    background: linear-gradient(45deg, #ff5fa2, #ffb3d9);
     color: white;
-    box-shadow: 0 0 25px rgba(255,111,174,0.6);
+    box-shadow: 0 0 35px rgba(255,95,162,0.8);
 }
 
 /* NO button */
 div.stButton:nth-of-type(2) > button {
     background: white;
-    color: #ff6fae;
-    border: 3px dashed #ff6fae;
+    color: #ff5fa2;
+    border: 4px dashed #ff5fa2;
 }
 
-/* Hover effect */
+/* Hover */
 div.stButton > button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 35px rgba(255,105,180,0.8);
+    transform: scale(1.12);
+    box-shadow: 0 0 45px rgba(255,105,180,1);
 }
 
-/* Click effect */
+/* Click */
 div.stButton > button:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
-/* Button pulse animation */
+/* Pulse animation */
 @keyframes pulse {
-    0% {box-shadow: 0 0 15px rgba(255,105,180,0.4);}
-    50% {box-shadow: 0 0 30px rgba(255,105,180,0.8);}
-    100% {box-shadow: 0 0 15px rgba(255,105,180,0.4);}
+    0% {box-shadow: 0 0 20px rgba(255,105,180,0.5);}
+    50% {box-shadow: 0 0 45px rgba(255,105,180,0.9);}
+    100% {box-shadow: 0 0 20px rgba(255,105,180,0.5);}
 }
 
 @keyframes pop {
